@@ -369,6 +369,9 @@ spec:
           securityContext:
             runAsUser: {{ .Values.general.puid }}
             runAsGroup: {{ .Values.general.pgid }}
+        {{- if not (empty .Values.sabnzbd.additionalInitContainers) }}
+          {{- toYaml .Values.sabnzbd.additionalInitContainers | nindent 8 }}
+        {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           envFrom:

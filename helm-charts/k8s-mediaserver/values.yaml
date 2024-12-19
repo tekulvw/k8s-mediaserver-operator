@@ -182,6 +182,38 @@ sabnzbd:
     port:
       http: 8080
       https: 9090
+  additionalInitContainers:
+    - name: gluetun
+      image: docker.io/qmcgaw/gluetun:latest # Optionally you can use the "qmcgaw/gluetun" image as well as specify what version of Gluetun you desire
+      restartPolicy: Always
+      imagePullPolicy: Always
+      securityContext:
+        capabilities:
+          add: ["NET_ADMIN"]
+        privileged: true
+      env:
+        # - name: TZ
+        #   value: "Europe/London"
+        - name: DNS_KEEP_NAMESERVER
+          value: "on"
+        - name: VPN_SERVICE_PROVIDER
+          value: mullvad
+        - name: VPN_TYPE
+          value: wireguard
+        - name: WIREGUARD_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              optional: false
+              name: mullvad-details
+              key: private-key
+        - name: WIREGUARD_ADDRESSES
+          valueFrom:
+            secretKeyRef:
+              optional: false
+              name: mullvad-details
+              key: addresses
+        - name: SERVER_CITIES
+          value: Stockholm
   service:
     http:
       type: ClusterIP
