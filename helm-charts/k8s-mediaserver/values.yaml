@@ -214,6 +214,8 @@ sabnzbd:
               key: addresses
         - name: SERVER_CITIES
           value: Stockholm
+        - name: FIREWALL_INPUT_PORTS
+          value: "8080"
   service:
     http:
       type: ClusterIP
