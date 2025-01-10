@@ -318,9 +318,9 @@ plex:
 jellyfin:
   enabled: false
   replicaCount: 1
+  nodeSelector: {}
   container:
     image: docker.io/linuxserver/jellyfin
-    nodeSelector: {}
     port: 8096
   service:
     type: ClusterIP
