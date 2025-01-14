@@ -67,6 +67,9 @@ spec:
               subPath: "{{ .Values.general.storage.subPaths.config }}/jellyfin"
           {{- end }}
             - name: mediaserver-volume
+              mountPath: /usr/share/jellyfin/web/config.json
+              subPath: "{{ .Values.general.storage.subPaths.config }}/jellyfin/web-root/config.json"
+            - name: mediaserver-volume
               mountPath: /movies
               subPath: "{{ .Values.general.storage.subPaths.movies }}"
             - name: mediaserver-volume
